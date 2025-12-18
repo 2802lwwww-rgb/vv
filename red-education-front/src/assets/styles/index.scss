@@ -1,0 +1,426 @@
+/* =============================================
+   全局样式 - Global Styles
+   ============================================= */
+
+@use 'sass:color';
+@use './variables.scss' as *;
+@use './mixins.scss' as *;
+@use './animations.scss';
+
+// ============================================
+// 基础重置
+// ============================================
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-normal);
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-secondary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+    height: 100%;
+    min-height: 100vh;
+}
+
+// ============================================
+// 链接样式
+// ============================================
+a {
+    text-decoration: none;
+    color: var(--color-primary);
+    transition: color var(--transition-fast);
+
+    &:hover {
+        color: var(--color-primary-dark);
+    }
+}
+
+// ============================================
+// 滚动条美化
+// ============================================
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--color-primary-light), var(--color-primary));
+    border-radius: var(--radius-full);
+
+    &:hover {
+        background: linear-gradient(180deg, var(--color-primary), var(--color-primary-dark));
+    }
+}
+
+// ============================================
+// 文本选中
+// ============================================
+::selection {
+    background: var(--color-primary);
+    color: var(--color-text-inverse);
+}
+
+// ============================================
+// 标题样式
+// ============================================
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    line-height: var(--line-height-tight);
+}
+
+h1 {
+    font-size: var(--font-size-4xl);
+}
+
+h2 {
+    font-size: var(--font-size-3xl);
+}
+
+h3 {
+    font-size: var(--font-size-2xl);
+}
+
+h4 {
+    font-size: var(--font-size-xl);
+}
+
+h5 {
+    font-size: var(--font-size-lg);
+}
+
+h6 {
+    font-size: var(--font-size-base);
+}
+
+// ============================================
+// 通用工具类
+// ============================================
+
+// 文本对齐
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+// 文本颜色
+.text-primary {
+    color: var(--color-primary) !important;
+}
+
+.text-accent {
+    color: var(--color-accent) !important;
+}
+
+.text-neon {
+    color: var(--color-neon) !important;
+}
+
+.text-success {
+    color: var(--color-success) !important;
+}
+
+.text-warning {
+    color: var(--color-warning) !important;
+}
+
+.text-error {
+    color: var(--color-error) !important;
+}
+
+.text-muted {
+    color: var(--color-text-muted) !important;
+}
+
+// 渐变文字
+.text-gradient {
+    background: var(--color-primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.text-gradient-gold {
+    background: linear-gradient(135deg, var(--color-accent) 0%, #F0C040 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+// 间距
+.mt-xs {
+    margin-top: var(--spacing-xs);
+}
+
+.mt-sm {
+    margin-top: var(--spacing-sm);
+}
+
+.mt-md {
+    margin-top: var(--spacing-md);
+}
+
+.mt-lg {
+    margin-top: var(--spacing-lg);
+}
+
+.mt-xl {
+    margin-top: var(--spacing-xl);
+}
+
+.mb-xs {
+    margin-bottom: var(--spacing-xs);
+}
+
+.mb-sm {
+    margin-bottom: var(--spacing-sm);
+}
+
+.mb-md {
+    margin-bottom: var(--spacing-md);
+}
+
+.mb-lg {
+    margin-bottom: var(--spacing-lg);
+}
+
+.mb-xl {
+    margin-bottom: var(--spacing-xl);
+}
+
+.p-xs {
+    padding: var(--spacing-xs);
+}
+
+.p-sm {
+    padding: var(--spacing-sm);
+}
+
+.p-md {
+    padding: var(--spacing-md);
+}
+
+.p-lg {
+    padding: var(--spacing-lg);
+}
+
+.p-xl {
+    padding: var(--spacing-xl);
+}
+
+// 旧兼容类
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.p-10 {
+    padding: 10px;
+}
+
+.p-20 {
+    padding: 20px;
+}
+
+// ============================================
+// 按钮通用样式增强
+// ============================================
+.btn-primary-gradient {
+    background: var(--color-primary-gradient) !important;
+    border: none !important;
+    color: white !important;
+    font-weight: var(--font-weight-medium);
+    transition: all var(--transition-base);
+
+    &:hover {
+        background: var(--color-primary-gradient-hover) !important;
+        box-shadow: var(--shadow-glow-red);
+        transform: translateY(-2px);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+.btn-glow {
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent);
+        transform: rotate(45deg);
+        transition: all 0.6s;
+    }
+
+    &:hover::after {
+        left: 100%;
+    }
+}
+
+// ============================================
+// 卡片通用样式
+// ============================================
+.card-modern {
+    background: var(--color-bg-primary);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    transition: all var(--transition-base);
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-card-hover);
+        border-color: var(--color-primary-light);
+    }
+}
+
+.card-glass {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-lg);
+}
+
+// ============================================
+// 徽章样式
+// ============================================
+.badge-primary {
+    background: var(--color-primary-gradient);
+    color: white;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+}
+
+.badge-neon {
+    background: var(--color-neon);
+    color: var(--color-secondary);
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    box-shadow: var(--shadow-glow-neon);
+}
+
+.badge-gold {
+    background: linear-gradient(135deg, var(--color-accent) 0%, #E6C235 100%);
+    color: var(--color-secondary);
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+}
+
+// ============================================
+// Element Plus 覆盖
+// ============================================
+
+// 主按钮
+.el-button--primary {
+    background: var(--color-primary-gradient) !important;
+    border: none !important;
+
+    &:hover,
+    &:focus {
+        background: var(--color-primary-gradient-hover) !important;
+        box-shadow: var(--shadow-glow-red);
+    }
+}
+
+// 卡片
+.el-card {
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+
+    &.is-hover-shadow:hover {
+        box-shadow: var(--shadow-card-hover);
+    }
+}
+
+// 菜单激活项
+.el-menu-item.is-active {
+    color: var(--color-primary) !important;
+    background: linear-gradient(90deg, rgba(214, 69, 65, 0.1), transparent) !important;
+}
+
+// 标签
+.el-tag--danger {
+    background: var(--color-primary-gradient) !important;
+    border: none !important;
+    color: white !important;
+}
+
+// ============================================
+// 容器布局
+// ============================================
+.page-container {
+    max-width: var(--max-width-content);
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+.section-title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-lg);
+
+    .title-accent {
+        color: var(--color-primary);
+    }
+}

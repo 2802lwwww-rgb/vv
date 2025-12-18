@@ -1,0 +1,105 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: red-education-platform
+  
+  # 数据源配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/red_education?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+  
+  # Redis配置
+  redis:
+    host: 192.168.56.130
+    port: 6379
+    password: 123456
+    database: 0
+    timeout: 3000ms
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: -1ms
+  
+  # 文件上传配置 (10GB天花板，实际限制由管理后台system_config控制)
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10240MB
+      max-request-size: 10240MB
+  
+  # Jackson配置
+  jackson:
+    date-format: yyyy-MM-DD HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_null
+  
+  # MVC配置（解决Swagger兼容性问题）
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+# MyBatis-Plus配置
+mybatis-plus:
+  configuration:
+    # 日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 驼峰下划线转换
+    map-underscore-to-camel-case: true
+    # 缓存
+    cache-enabled: false
+  global-config:
+    db-config:
+      # 主键策略
+      id-type: auto
+      # 逻辑删除字段
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  # Mapper XML文件位置
+  mapper-locations: classpath*:/mapper/**/*.xml
+  # 实体类包路径
+  type-aliases-package: com.red.education.module.*.entity
+
+# JWT配置
+jwt:
+  # 密钥（请在生产环境中修改为复杂的密钥）
+  secret: red-education-platform-jwt-secret-key-2025
+  # Token有效期（单位：秒，默认7天）
+  expiration: 604800
+  # Token前缀
+  token-prefix: Bearer 
+  # Header名称
+  header: Authorization
+
+# 文件上传配置
+file:
+  # 上传路径（请根据实际情况修改）
+  upload-path: D:/upload/red-education/
+  # 访问路径前缀
+  access-path: /files/**
+  # 文档最大大小（50MB）
+  doc-max-size: 52428800
+  # 视频最大大小（500MB）
+  video-max-size: 524288000
+
+# Knife4j配置
+knife4j:
+  enable: true
+  setting:
+    language: "zh-CN"
+
+# 日志配置
+logging:
+  level:
+    com.red.education: debug
+    org.springframework.security: debug
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50} - %msg%n'
